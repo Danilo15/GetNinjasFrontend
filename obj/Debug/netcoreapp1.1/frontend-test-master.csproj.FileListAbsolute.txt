@@ -1,0 +1,8 @@
+C:\Users\danil\Desktop\frontend-test-master\bin\Debug\netcoreapp1.1\frontend-test-master.deps.json
+C:\Users\danil\Desktop\frontend-test-master\bin\Debug\netcoreapp1.1\frontend-test-master.runtimeconfig.json
+C:\Users\danil\Desktop\frontend-test-master\bin\Debug\netcoreapp1.1\frontend-test-master.runtimeconfig.dev.json
+C:\Users\danil\Desktop\frontend-test-master\bin\Debug\netcoreapp1.1\frontend-test-master.dll
+C:\Users\danil\Desktop\frontend-test-master\bin\Debug\netcoreapp1.1\frontend-test-master.pdb
+C:\Users\danil\Desktop\frontend-test-master\obj\Debug\netcoreapp1.1\frontend-test-master.AssemblyInfo.cs
+C:\Users\danil\Desktop\frontend-test-master\obj\Debug\netcoreapp1.1\frontend-test-master.dll
+C:\Users\danil\Desktop\frontend-test-master\obj\Debug\netcoreapp1.1\frontend-test-master.pdb
