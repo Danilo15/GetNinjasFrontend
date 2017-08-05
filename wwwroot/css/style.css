@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box; 
+}
+
+body{
+    font-family: Arial;
+}
+
+fieldset{
+    margin: 0 auto;
+    width: 35%;
+    border: 1px solid #ccc;
+    border-radius: 1%;
+    padding: 35px 3%;
+}
+
+select, textarea{
+    width: 100%;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+}
+
+div > label{
+        display: inline-block;
+    margin-bottom: 6px;
+    color: rgba(51,51,51,0.9);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.box-ph{
+    margin-bottom: 20px;
+}
+
+li{
+    margin-top: 16px;
+    padding-left: 30px;
+}
+li > label{
+    color: rgba(51,51,51,0.6);
+    font-size: 14px;
+}
+li > label:before {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0;
+    box-shadow: inset 0 0 0 1px rgba(83,110,123,0.3);
+    border-radius: 4px;
+    background-color: #eff4fa;
+    content: '';
+    text-align: center;
+    font-size: 13px;
+}
+
+li > input:checked ~ label::before {
+    color: #fff;
+    background-color: #1393f6;
+    background-repeat: no-repeat;
+    background-position: center center;
+    content: '\2713';
+}
+
+li > input{
+        width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+}
+
+input[type="text"], select, textarea{
+        display: block;
+    padding: 13px;
+    border: 1px solid rgba(19,147,246,0.5);
+    border-radius: 6px;
+    background-color: #eff4fa;
+    font-size: 14px;
+    -webkit-transition: box-shadow .18s;
+    transition: box-shadow .18s;
+}
+
+.error-message {
+    color: #e90000;
+    font-size: 12px;
+}
+
+.btn{
+    display: block;
+    width: 100%;
+    background-color: #1393f6;
+    color: #fff;
+    padding: 16px 32px;
+    font-size: 14px;
+    border-radius: 6px;
+    font-weight: 400;
+    text-align: center;
+    border: 0;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: background-color .2s;
+    transition: background-color .2s;
+}
+
+.btn:hover {
+    background-color: #1272d5;
+}
