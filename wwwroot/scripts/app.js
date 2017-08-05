@@ -290,19 +290,13 @@ var validar = function(fieldset)
                 falhou = element.value.length == 0;
             break;
         }
-
         if(falhou)
         {
             valid = false;
             element.parentElement.querySelector('.error-message').style.display = 'block';                                    
         }
         else{
-            var errorsMessages = document.querySelectorAll('.error-message');
-
-            if(errorsMessages.length > 0)
-            errorsMessages.forEach(function(element){
-                element.style.display = 'none';
-            });
+            element.parentElement.querySelector('.error-message').style.display = 'none'; 
         }
     }, this);
 
