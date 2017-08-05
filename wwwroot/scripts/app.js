@@ -290,7 +290,6 @@ var validar = function(fieldset)
                 falhou = element.value.length == 0;
             break;
         }
-        console.log('falhou', falhou);
         if(falhou)
         {
             valid = false;
