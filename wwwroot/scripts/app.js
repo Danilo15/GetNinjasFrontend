@@ -22,6 +22,24 @@ var init = function(){
     });
 }
 
+var buildRequestFields = function(requestFields){
+    var fieldset = document.createElement('fieldset');
+
+    fieldset.setAttribute('class','request-fields');
+
+    iterationFields(requestFields, fieldset);
+
+    var buttonBuscarProfissionais = document.createElement('button');
+
+    buttonBuscarProfissionais.setAttribute('class', 'btn btn-buscar-profissionais');
+    buttonBuscarProfissionais.setAttribute('type', 'button');
+    buttonBuscarProfissionais.innerText = 'Buscar Profissionais';
+    
+    fieldset.appendChild(buttonBuscarProfissionais);
+    
+    buttonBuscarProfissionais.addEventListener('click', onBtnBuscarProfissionaisClick)
+}
+
 var buildUserFields = function(userFields){
     var fieldset = document.createElement('fieldset');
 
@@ -57,136 +75,6 @@ var iterationFields = function(fields, fieldset)
             div.appendChild(title);
             appendFieldByType(field, div, simpleField, fieldset);
     }
-}
-
-var buildRequestFields = function(requestFields){
-    var fieldset = document.createElement('fieldset');
-
-    fieldset.setAttribute('class','request-fields');
-
-    iterationFields(requestFields, fieldset);
-
-    var buttonBuscarProfissionais = document.createElement('button');
-
-    buttonBuscarProfissionais.setAttribute('class', 'btn btn-buscar-profissionais');
-    buttonBuscarProfissionais.setAttribute('type', 'button');
-    buttonBuscarProfissionais.innerText = 'Buscar Profissionais';
-    
-    fieldset.appendChild(buttonBuscarProfissionais);
-    
-    buttonBuscarProfissionais.addEventListener('click', onBtnBuscarProfissionaisClick)
-}
-
-var onBtnBuscarProfissionaisClick = function(event) {
-    var fieldset = event.currentTarget.closest('fieldset');
-    var valid = validar(fieldset);
-
-    if(valid){
-        document.querySelector('.request-fields').style.display = 'none';
-        document.querySelector('.user-fields').style.display = 'block';
-    }
-}
-
-var onBtnFinalizarClick = function(event) {
-    var fieldset = event.currentTarget.closest('fieldset');
-    var  valid = validar(fieldset);
-}
-
-var validar = function(fieldset)
-{
-    var valid = true;
-    var requiredFields = fieldset.querySelectorAll('.required');
-
-    requiredFields.forEach(function(element) {
-        var falhou = false;
-        switch(element.tagName) {
-            case 'UL':
-                var qtdSelecionados = element.querySelectorAll('input[type="checkbox"]:checked').length;
-                falhou = qtdSelecionados === 0;     
-            break;
-            case 'SELECT':
-                var valorDefaultSelecionado = element.querySelector('option').selected;
-                falhou = valorDefaultSelecionado;
-            break;
-            case 'INPUT':
-                falhou = element.value.length == 0;
-            break;
-        }
-
-        if(falhou)
-        {
-            valid = false;
-            element.parentElement.querySelector('.error-message').style.display = 'block';                                    
-        }
-        else{
-            var errorsMessages = document.querySelectorAll('.error-message');
-
-            if(errorsMessages.length > 0)
-            errorsMessages.forEach(function(element){
-                element.style.display = 'none';
-            });
-        }
-    }, this);
-
-    return valid;
-}
-
-var createSpanRequired = function(msg){
-    var spanRequired = document.createElement('span');
-    spanRequired.className = 'error-message';
-    spanRequired.style.display = 'none';
-    spanRequired.innerText = msg;
-
-    return spanRequired;
-}
-
-var appendFieldByType = function(field, div, simpleField, fieldset){
-    var contentPh = document.querySelector('.content-ph');
-    var requiredMessage = 'Este campo é requerido';
-
-    switch(field.type){
-        case 'enumerable':
-        if(field.allow_multiple_value)
-        {
-            var ul = document.createElement('ul');
-            ul.setAttribute('id', field.name);
-            ul.setAttribute('name',field.name);
-            
-            if(field.required){
-                requiredMessage = 'Marque pelo menos uma opção';
-                ul.className += 'required';
-            }
-            
-            for (var j in simpleField) {
-                var li = simpleField[j];                            
-                ul.appendChild(li);
-            }
-
-            div.appendChild(ul);
-
-        }else{
-            div.appendChild(simpleField);
-        }
-                    
-        break;
-        case 'big_text':
-        case 'lat_lng':
-        case 'small_text':
-        case 'email':
-        case 'phone':
-            div.appendChild(simpleField);
-        break;
-    }
-
-    if(field.required){
-        var spanRequired = createSpanRequired(requiredMessage);
-        div.appendChild(spanRequired);
-        simpleField.className += 'required';
-    }
-
-    fieldset.appendChild(div);    
-
-    contentPh.appendChild(fieldset);
 }
 
 var buildSimpleField = function(field){
@@ -305,6 +193,120 @@ var buildSimpleField = function(field){
             return input;
             break;
     }
+}
+
+var appendFieldByType = function(field, div, simpleField, fieldset){
+    var contentPh = document.querySelector('.content-ph');
+    var requiredMessage = 'Este campo é requerido';
+
+    switch(field.type){
+        case 'enumerable':
+        if(field.allow_multiple_value)
+        {
+            var ul = document.createElement('ul');
+            ul.setAttribute('id', field.name);
+            ul.setAttribute('name',field.name);
+            
+            if(field.required){
+                requiredMessage = 'Marque pelo menos uma opção';
+                ul.className += 'required';
+            }
+            
+            for (var j in simpleField) {
+                var li = simpleField[j];                            
+                ul.appendChild(li);
+            }
+
+            div.appendChild(ul);
+
+        }else{
+            div.appendChild(simpleField);
+        }
+                    
+        break;
+        case 'big_text':
+        case 'lat_lng':
+        case 'small_text':
+        case 'email':
+        case 'phone':
+            div.appendChild(simpleField);
+        break;
+    }
+
+    if(field.required){
+        var spanRequired = createSpanRequired(requiredMessage);
+        div.appendChild(spanRequired);
+        simpleField.className += 'required';
+    }
+
+    fieldset.appendChild(div);    
+
+    contentPh.appendChild(fieldset);
+}
+
+var createSpanRequired = function(msg){
+    var spanRequired = document.createElement('span');
+    spanRequired.className = 'error-message';
+    spanRequired.style.display = 'none';
+    spanRequired.innerText = msg;
+
+    return spanRequired;
+}
+
+/* events */
+
+var onBtnBuscarProfissionaisClick = function(event) {
+    var fieldset = event.currentTarget.closest('fieldset');
+    var valid = validar(fieldset);
+
+    if(valid){
+        document.querySelector('.request-fields').style.display = 'none';
+        document.querySelector('.user-fields').style.display = 'block';
+    }
+}
+
+var onBtnFinalizarClick = function(event) {
+    var fieldset = event.currentTarget.closest('fieldset');
+    var  valid = validar(fieldset);
+}
+
+var validar = function(fieldset)
+{
+    var valid = true;
+    var requiredFields = fieldset.querySelectorAll('.required');
+
+    requiredFields.forEach(function(element) {
+        var falhou = false;
+        switch(element.tagName) {
+            case 'UL':
+                var qtdSelecionados = element.querySelectorAll('input[type="checkbox"]:checked').length;
+                falhou = qtdSelecionados === 0;     
+            break;
+            case 'SELECT':
+                var valorDefaultSelecionado = element.querySelector('option').selected;
+                falhou = valorDefaultSelecionado;
+            break;
+            case 'INPUT':
+                falhou = element.value.length == 0;
+            break;
+        }
+
+        if(falhou)
+        {
+            valid = false;
+            element.parentElement.querySelector('.error-message').style.display = 'block';                                    
+        }
+        else{
+            var errorsMessages = document.querySelectorAll('.error-message');
+
+            if(errorsMessages.length > 0)
+            errorsMessages.forEach(function(element){
+                element.style.display = 'none';
+            });
+        }
+    }, this);
+
+    return valid;
 }
 
 init();

@@ -14,7 +14,7 @@ fieldset{
     padding: 35px 3%;
 }
 
-select, textarea{
+select, textarea, input{
     width: 100%;
 }
 
