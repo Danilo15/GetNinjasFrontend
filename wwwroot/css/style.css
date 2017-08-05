@@ -66,8 +66,8 @@ li > input:checked ~ label::before {
 }
 
 li > input{
-        width: 100%;
-    height: 100%;
+    width: 100%;
+    height: 30%;
     position: absolute;
     left: 0;
     z-index: 1;
